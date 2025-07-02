@@ -1,8 +1,9 @@
 streamlit
 sentence-transformers==2.2.2
-scikit-learn
-torch==2.1.2
 transformers==4.36.2
+torch==2.1.2
+scikit-learn
+huggingface_hub==0.20.3
 sentencepiece
 numpy
 requests
