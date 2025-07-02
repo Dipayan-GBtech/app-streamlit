@@ -8,3 +8,4 @@ scikit-learn
 sentencepiece
 numpy
 requests
+protobuf==3.20.3
