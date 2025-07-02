@@ -66,6 +66,7 @@ def generate_with_mistral_together(prompt):
     except Exception as e:
         return f"Error generating response: {e}"
 
+# Trigger rebuild on Streamlit
 def retrieve_and_answer(query):
     corrections = load_corrections()
     for entry in corrections:
