@@ -1,0 +1,8 @@
+streamlit
+sentence-transformers==2.2.2
+transformers==4.36.2
+torch==2.1.2
+faiss-cpu @ https://github.com/facebookresearch/faiss/releases/download/v1.7.2/faiss_cpu-1.7.2-cp39-cp39-manylinux2014_x86_64.whl
+numpy
+requests
+

@@ -1,0 +1,235 @@
+[
+    {
+  "plan": {
+    "calendar_year": true,
+    "deductible_reset_date": "2025-01-01",
+    "network_tiers": {
+      "in_network": {
+        "enhanced_coinsurance_benefit": 90,
+        "standard_coinsurance_benefit": 70
+      },
+      "out_of_network": {
+        "coinsurance_benefit": 60
+      }
+    }
+  },
+
+  "fully_covered_services": {
+    "preventive_care": {
+      "before_deductible": true,
+      "coverage_percentage": 100,
+      "services": [
+        "Abdominal Aortic Aneurysm Screening",
+        "Anemia Screening",
+        "Autism Screening",
+        "Breastfeeding Support",
+        "Chlamydia Screen",
+        "Depression Screening for Adolescents",
+        "Dietary Nutrition Counseling",
+        "Gonorrhea Screening",
+        "Hepatitis B Screening",
+        "HIV Screening",
+        "Rh Incompatibility Screening",
+        "Syphilis Screening",
+        "Genetic Counseling for BRCA Testing",
+        "Diabetes Screening",
+        "Rubella Screening",
+        "Mammography",
+        "Cervical Cancer Screening (Pap Smear)",
+        "Cholesterol Screening",
+        "Contraception (Women Only)",
+        "Colorectal Cancer Screening",
+        "Folic Acid Supplements",
+        "Gestational Diabetes Screening",
+        "Wellness Examinations",
+        "Immunizations",
+        "Newborn Screenings",
+        "Obesity Screening & Counseling",
+        "Osteoporosis Screening",
+        "Prostate Cancer Screening",
+        "Alcohol Misuse Counseling",
+        "Aspirin Use Counseling",
+        "Tobacco Use Screening",
+        "Female Sterilization",
+        "Routine Eye Exam",
+        "Maternity Care – Office Visit & Lab",
+        "Antenatal Screening",
+        "BRCA Gene Analysis (with qualifying diagnosis)"
+      ]
+    },
+    "prescription_drugs_not_subject_to_deductible": true
+  },
+
+  "deductibles": {
+    "in_network": {
+      "individual": 1500,
+      "family": 4500
+    },
+    "out_of_network": {
+      "individual": 3000,
+      "family": 9000
+    },
+    "family_accumulation_rule": "any combination of covered members"
+  },
+
+  "copayments": {
+    "first_two_office_visits_annually": {
+      "value": 35,
+      "applies_to": ["in_network", "out_of_network"]
+    },
+    "outpatient_surgery_facility": {
+      "value": 100,
+      "applies_to": ["in_network", "out_of_network"]
+    },
+    "emergency_room_care": {
+      "value": 100,
+      "applies_to": ["in_network", "out_of_network"]
+    },
+    "hospital_stay": {
+      "in_network": 300,
+      "out_of_network": 500
+    },
+    "chiropractic_care": {
+      "daily_copay": 50,
+      "annual_limit_sessions": 30
+    }
+  },
+
+  "coinsurance": {
+    "in_network": {
+      "base_rate": 30,
+      "services": {
+        "primary_care_visit": 30,
+        "specialist_visit": 30,
+        "diagnostic_tests": 30,
+        "imaging": 30,
+        "outpatient_surgery_facility": 30,
+        "outpatient_surgery_physician": 30,
+        "emergency_room_care": 30,
+        "urgent_care": 30,
+        "hospital_stay_facility": 30,
+        "hospital_stay_physician": 30,
+        "mental_health_outpatient": 30,
+        "mental_health_inpatient": 30,
+        "maternity_services": 30,
+        "rehab_services": 30,
+        "durable_medical_equipment": 30,
+        "home_health": 30,
+        "hospice": 30
+      }
+    },
+    "out_of_network": {
+      "base_rate": 60,
+      "services": {
+        "preventive_care": 60,
+        "primary_care_visit": 60,
+        "specialist_visit": 60,
+        "diagnostic_tests": 60,
+        "imaging": 60,
+        "outpatient_surgery_facility": 60,
+        "outpatient_surgery_physician": 60,
+        "emergency_room_care": 60,
+        "urgent_care": 60,
+        "hospital_stay_facility": 60,
+        "hospital_stay_physician": 60,
+        "mental_health_outpatient": 60,
+        "mental_health_inpatient": 60,
+        "maternity_services": 60,
+        "rehab_services": 60,
+        "durable_medical_equipment": 60,
+        "home_health": 60,
+        "hospice": 60
+      }
+    }
+  },
+
+  "prescription_drug_coverage": {
+    "generic": {
+      "in_network": {
+        "type": "copay",
+        "value": 10
+      },
+      "out_of_network": "not covered"
+    },
+    "preferred_brand": {
+      "in_network": {
+        "type": "copay",
+        "value": "retail - $10"
+      },
+      "out_of_network": "not covered"
+    },
+    "non_preferred_brand": {
+      "in_network": {
+        "type": "copay",
+        "min_value": 10
+      },
+      "out_of_network": "not covered"
+    },
+    "specialty_drugs": {
+      "in_network": {
+        "type": "co-insurance",
+        "value": 30
+      },
+      "out_of_network": {
+        "type": "co-insurance",
+        "value": 60
+      }
+    }
+  },
+
+  "out_of_pocket_limits": {
+    "in_network": {
+      "individual": 9100,
+      "family": 18200
+    },
+    "out_of_network": {
+      "individual": "unlimited",
+      "family": "unlimited"
+    },
+    "excluded_from_oop": [
+      "premiums",
+      "balance-billed charges",
+      "ineligible charges",
+      "penalties"
+    ]
+  },
+
+  "dental_benefits": {
+    "maximum_annual_benefit_per_person_over_18": 1000,
+    "deductible": {
+      "individual": 50,
+      "family": 150
+    },
+    "preventive_care": {
+      "deductible_waived": true,
+      "coverage_percentage": 100
+    },
+    "basic_services_coverage": 80,
+    "major_services_coverage": 50,
+    "oral_exams_limit": 2,
+    "bitewing_xrays_limit": 2,
+    "sealants_limit": {
+      "age_under": 14,
+      "per_tooth_interval_years": 3
+    },
+    "fluoride_application": {
+      "adults": false,
+      "under_age_19": 1
+    },
+    "implants": "not covered",
+    "cosmetic_procedures": "not covered"
+  },
+
+  "excluded_services": [
+    "Cosmetic Surgery",
+    "Vision care (other than routine)",
+    "Infertility treatment",
+    "Bariatric surgery",
+    "Hearing aids",
+    "Orthodontic services",
+    "Weight loss services",
+    "Experimental treatments",
+    "Services not medically necessary"
+  ]
+}
+]
