@@ -1,4 +1,6 @@
 streamlit
-scikit-learn
+sentence-transformers
+faiss-cpu 
 numpy
 requests
+python-dotenv
