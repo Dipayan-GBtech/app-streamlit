@@ -1,33 +1,29 @@
 import os
 import json
+import numpy as np
 import streamlit as st
 from datetime import datetime
-import chromadb
-from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+from sentence_transformers import SentenceTransformer
+from sklearn.neighbors import NearestNeighbors
 import requests
 
-# File paths
+# --- Load data ---
 data_dir = "data"
+os.makedirs(data_dir, exist_ok=True)
 raw_text_path = os.path.join(data_dir, "raw_text.json")
 corrections_path = os.path.join(data_dir, "corrections.json")
 
-# Load raw text data
+# Load documents
 with open(raw_text_path, "r") as f:
     raw_text = json.load(f)
 
-# Initialize ChromaDB with embedding function
-embedding_func = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
-client = chromadb.Client()
-collection = client.get_or_create_collection(
-    name="rag_collection", embedding_function=embedding_func
-)
+# Load model + encode docs
+model = SentenceTransformer("all-MiniLM-L6-v2")
+doc_embeddings = model.encode([str(d) for d in raw_text])
+nn = NearestNeighbors(n_neighbors=1, metric="cosine")
+nn.fit(doc_embeddings)
 
-# Add data to ChromaDB (if not already)
-if len(collection.get()["ids"]) == 0:
-    for i, doc in enumerate(raw_text):
-        collection.add(documents=[str(doc)], ids=[f"doc_{i}"])
-
-# Load corrections
+# --- Feedback tracking ---
 def load_corrections():
     try:
         with open(corrections_path, "r") as f:
@@ -35,7 +31,6 @@ def load_corrections():
     except:
         return []
 
-# Save corrected answer
 def save_correction(question, original_answer, corrected_answer):
     corrections = load_corrections()
     corrections.append({
@@ -47,23 +42,22 @@ def save_correction(question, original_answer, corrected_answer):
     with open(corrections_path, "w") as f:
         json.dump(corrections, f, indent=2)
 
-# RAG answer logic
+# --- RAG pipeline ---
 def retrieve_and_answer(query):
-    # First check manual corrections
+    # Return correction if exists
     for entry in load_corrections():
         if entry["question"].strip().lower() == query.strip().lower():
             return entry["corrected_answer"]
 
-    # ChromaDB top match
-    results = collection.query(query_texts=[query], n_results=1)
-    context = results["documents"][0][0]
+    # Embed and retrieve context
+    query_vec = model.encode([query])
+    _, indices = nn.kneighbors(query_vec)
+    context = str(raw_text[indices[0][0]])
 
-    # Prompt
     prompt = f"""
 Answer the following question using the provided context:
 Question: {query}
-Context:
-{context}
+Context: {context}
 Answer:
 """
 
@@ -79,20 +73,19 @@ Answer:
         )
         return response.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error calling LLM: {e}"
 
 # --- Streamlit UI ---
+st.title("🔍 RAG Q&A System (Sklearn-based)")
+question = st.text_input("Ask a question:")
 
-st.title("RAG Q&A Chatbot")
-
-query = st.text_input("Ask your question:")
-if st.button("Get Answer") and query:
-    answer = retrieve_and_answer(query)
+if st.button("Get Answer") and question:
+    answer = retrieve_and_answer(question)
     st.write("### Answer")
     st.write(answer)
 
     with st.expander("Suggest a correction"):
-        corrected = st.text_area("Corrected Answer")
-        if st.button("Submit Correction") and corrected:
-            save_correction(query, answer, corrected)
-            st.success("Correction saved. Thank you!")
+        correction = st.text_area("Corrected Answer")
+        if st.button("Submit Correction") and correction:
+            save_correction(question, answer, correction)
+            st.success("✅ Correction saved. Thank you!")
