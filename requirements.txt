@@ -1,11 +1,9 @@
 streamlit
-chromadb
 sentence-transformers==2.2.2
+scikit-learn
 transformers==4.30.2
 torch==2.0.1
 huggingface_hub==0.20.3
-scikit-learn
 sentencepiece
 numpy
 requests
-protobuf==3.20.3
