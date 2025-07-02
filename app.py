@@ -1,29 +1,33 @@
-import json
-import numpy as np
 import os
+import json
 import streamlit as st
-from sentence_transformers import SentenceTransformer
 from datetime import datetime
+import chromadb
+from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 import requests
-from sklearn.neighbors import NearestNeighbors
 
-# Paths
+# File paths
 data_dir = "data"
 raw_text_path = os.path.join(data_dir, "raw_text.json")
 corrections_path = os.path.join(data_dir, "corrections.json")
 
-# Load raw_text
+# Load raw text data
 with open(raw_text_path, "r") as f:
     raw_text = json.load(f)
 
-# Load model and encode
-model = SentenceTransformer('all-MiniLM-L6-v2')
-embeddings = model.encode([str(entry) for entry in raw_text], convert_to_numpy=True)
+# Initialize ChromaDB with embedding function
+embedding_func = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+client = chromadb.Client()
+collection = client.get_or_create_collection(
+    name="rag_collection", embedding_function=embedding_func
+)
 
-# Build scikit-learn index using cosine distance
-index = NearestNeighbors(n_neighbors=1, metric="cosine")
-index.fit(embeddings)
+# Add data to ChromaDB (if not already)
+if len(collection.get()["ids"]) == 0:
+    for i, doc in enumerate(raw_text):
+        collection.add(documents=[str(doc)], ids=[f"doc_{i}"])
 
+# Load corrections
 def load_corrections():
     try:
         with open(corrections_path, "r") as f:
@@ -31,6 +35,7 @@ def load_corrections():
     except:
         return []
 
+# Save corrected answer
 def save_correction(question, original_answer, corrected_answer):
     corrections = load_corrections()
     corrections.append({
@@ -42,17 +47,16 @@ def save_correction(question, original_answer, corrected_answer):
     with open(corrections_path, "w") as f:
         json.dump(corrections, f, indent=2)
 
+# RAG answer logic
 def retrieve_and_answer(query):
-    # Check for manual corrections
-    corrections = load_corrections()
-    for entry in corrections:
+    # First check manual corrections
+    for entry in load_corrections():
         if entry["question"].strip().lower() == query.strip().lower():
             return entry["corrected_answer"]
 
-    # Retrieve most relevant context using cosine similarity
-    query_emb = model.encode([query], convert_to_numpy=True)
-    D, I = index.kneighbors(query_emb, return_distance=True)
-    context = str(raw_text[I[0][0]])
+    # ChromaDB top match
+    results = collection.query(query_texts=[query], n_results=1)
+    context = results["documents"][0][0]
 
     # Prompt
     prompt = f"""
@@ -65,7 +69,7 @@ Answer:
 
     try:
         response = requests.post(
-            "https://api.together.xyz/v1/chat/completions",  # replace with your model provider if needed
+            "https://api.together.xyz/v1/chat/completions",
             headers={"Authorization": f"Bearer {st.secrets['TOGETHER_API_KEY']}"},
             json={
                 "model": "mistral-7b-instruct",
@@ -73,26 +77,22 @@ Answer:
                 "temperature": 0.3
             }
         )
-        ans = response.json()["choices"][0]["message"]["content"].strip()
+        return response.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
-        ans = f"Error generating answer: {e}"
+        return f"Error: {e}"
 
-    return ans
+# --- Streamlit UI ---
 
-# Streamlit UI
-st.title("RAG-based Q&A with Feedback")
+st.title("RAG Q&A Chatbot")
 
-query = st.text_input("Ask a question:")
+query = st.text_input("Ask your question:")
 if st.button("Get Answer") and query:
     answer = retrieve_and_answer(query)
     st.write("### Answer")
     st.write(answer)
 
-    with st.expander("Submit a correction"):
+    with st.expander("Suggest a correction"):
         corrected = st.text_area("Corrected Answer")
         if st.button("Submit Correction") and corrected:
             save_correction(query, answer, corrected)
-            st.success("Correction submitted.")
-
-
-
+            st.success("Correction saved. Thank you!")
