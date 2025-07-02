@@ -1,9 +1,8 @@
 streamlit
 sentence-transformers==2.2.2
-transformers==4.36.2
+scikit-learn
 torch==2.1.2
-faiss-cpu==1.7.4
+transformers==4.36.2
 sentencepiece
 numpy
 requests
-
