@@ -8,7 +8,7 @@ from datetime import datetime
 import requests
 
 # Load secrets
-API_KEY = st.secrets["TOGETHER_API_KEY"]
+#API_KEY = st.secrets["TOGETHER_API_KEY"]
 
 # Paths
 data_dir = "data"
