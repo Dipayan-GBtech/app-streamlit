@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 from datetime import datetime
 import requests
 
-os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+#os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 # Load secrets
 API_KEY = st.secrets['TOGETHER_API_KEY']
 
