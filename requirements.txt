@@ -1,7 +1,8 @@
 streamlit
-sentence-transformers>=2.2.0
+sentence-transformers==2.2.0
 faiss-cpu 
 numpy
 requests
 python-dotenv
 torch==1.13.1
+transformers==4.30.0
