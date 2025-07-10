@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 from datetime import datetime
 import requests
 
-os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+#os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 # Load secrets
 API_KEY = st.secrets['TOGETHER_API_KEY']
 
@@ -21,8 +21,10 @@ with open(raw_text_path, "r") as f:
     raw_text = json.load(f)
 
 # Load model and build FAISS index
-#model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2',device='cpu',trust_remote_code=True)
-model = SentenceTransformer('paraphrase-MiniLM-L6-v2', device='cpu',trust_remote_code=True)
+model = SentenceTransformer('all-MiniLM-L6-v2')
+model.save('./all-MiniLM-L6-v2', safe_serialization=False)
+model = SentenceTransformer('./all-MiniLM-L6-v2')
+#model = SentenceTransformer('paraphrase-MiniLM-L6-v2', device='cpu',trust_remote_code=True)
 embeddings = model.encode([str(entry) for entry in raw_text])
 dimension = embeddings.shape[1]
 index = faiss.IndexFlatL2(dimension)
@@ -75,8 +77,8 @@ def retrieve_and_answer(query):
 
     query_emb = model.encode([query])
     D, I = index.search(np.array(query_emb), k=1)
-    #context = str(raw_text[I[0][0]])
-    context = "\n\n".join([str(raw_text[i]) for i in I[0]])
+    context = str(raw_text[I[0][0]])
+    #context = "\n\n".join([str(raw_text[i]) for i in I[0]])
 
     prompt = f"""Answer the following question using the provided context:
 Question: {query}
