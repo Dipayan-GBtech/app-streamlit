@@ -7,6 +7,7 @@ from sentence_transformers import SentenceTransformer
 from datetime import datetime
 import requests
 
+os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 # Load secrets
 API_KEY = st.secrets['TOGETHER_API_KEY']
 
@@ -20,8 +21,8 @@ with open(raw_text_path, "r") as f:
     raw_text = json.load(f)
 
 # Load model and build FAISS index
-#model = SentenceTransformer('all-MiniLM-L6-v2',device='cpu')
-model = SentenceTransformer('paraphrase-MiniLM-L6-v2', device='cpu')
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2',device='cpu',trust_remote_code=True)
+#model = SentenceTransformer('paraphrase-MiniLM-L6-v2', device='cpu')
 embeddings = model.encode([str(entry) for entry in raw_text])
 dimension = embeddings.shape[1]
 index = faiss.IndexFlatL2(dimension)
