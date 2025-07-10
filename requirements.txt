@@ -1,5 +1,6 @@
-streamlit
-sentence-transformers
+sentence-transformers==2.2.2
+transformers==4.31.0
+torch==2.0.1
 faiss-cpu
-numpy
+streamlit
 requests
