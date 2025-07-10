@@ -20,7 +20,7 @@ with open(raw_text_path, "r") as f:
     raw_text = json.load(f)
 
 # Load model and build FAISS index
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('all-MiniLM-L6-v2',device='cpu')
 embeddings = model.encode([str(entry) for entry in raw_text])
 dimension = embeddings.shape[1]
 index = faiss.IndexFlatL2(dimension)
