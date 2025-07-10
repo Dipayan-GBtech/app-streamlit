@@ -75,7 +75,8 @@ def retrieve_and_answer(query):
 
     query_emb = model.encode([query])
     D, I = index.search(np.array(query_emb), k=1)
-    context = str(raw_text[I[0][0]])
+    #context = str(raw_text[I[0][0]])
+    context = "\n\n".join([str(raw_text[i]) for i in I[0]])
 
     prompt = f"""Answer the following question using the provided context:
 Question: {query}
