@@ -1,7 +1,7 @@
-sentence-transformers==2.3.0
-transformers==4.34.0
+sentence-transformers>=2.3.0
+transformers>=4.34.0
 torch==2.0.1
 faiss-cpu
 streamlit
 requests
-huggingface-hub==0.25.0
+huggingface-hub>=0.23.0
