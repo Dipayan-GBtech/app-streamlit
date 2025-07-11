@@ -22,7 +22,7 @@ with open(RAW_TEXT_PATH, "r") as f:
 # Load embedding model
 @st.cache_resource
 def load_model():
-    return SentenceTransformer('all-MiniLM-L6-v2')
+    return SentenceTransformer('all-MiniLM-L6-v2',device="cuda")
 
 model = load_model()
 
