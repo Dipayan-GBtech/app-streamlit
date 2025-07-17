@@ -59,7 +59,7 @@
     },
     "prescription_drugs_not_subject_to_deductible": true
   },
-"excluded_services": [
+"excluded_services": {[
     "Cosmetic Surgery",
     "Vision care (other than routine)",
     "Infertility treatment",
@@ -70,7 +70,7 @@
     "Experimental treatments",
     "Services not medically necessary",
     "dependent maternity"
-  ],
+  ]},
 
   "deductibles": {
     "in_network": {
