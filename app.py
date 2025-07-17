@@ -69,7 +69,8 @@ def generate_with_together(prompt):
             },
             json={
                 #"model": "mistralai/Mistral-7B-Instruct-v0.2",
-                "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+                #"model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+                "model": "meta-llama/Meta-Llama-3-70B-Instruct-Lite",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
