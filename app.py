@@ -69,7 +69,7 @@ def generate_with_together(prompt):
             },
             json={
                 #"model": "mistralai/Mistral-7B-Instruct-v0.2",
-                "model": "Qwen/Qwen1.5-0.5B-Chat",
+                "model": "Qwen/Qwen2-1.5B-Instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
