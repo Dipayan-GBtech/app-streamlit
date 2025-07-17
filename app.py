@@ -68,8 +68,8 @@ def generate_with_together(prompt):
                 "Content-Type": "application/json"
             },
             json={
-                #"model": "mistralai/Mistral-7B-Instruct-v0.2",
-                "model": "Qwen/Qwen2-1.5B-Instruct",
+                "model": "mistralai/Mistral-7B-Instruct-v0.2",
+                #"model": "Qwen/Qwen2-1.5B-Instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
