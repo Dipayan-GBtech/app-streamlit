@@ -14,7 +14,6 @@ API_KEY = st.secrets["TOGETHER_API_KEY"]
 DATA_DIR = "data"
 RAW_TEXT_PATH = os.path.join(DATA_DIR, "raw_text.json")
 CORRECTIONS_PATH = os.path.join(DATA_DIR, "corrections.json")
-INDEX_PATH = os.path.join(DATA_DIR, "faiss_index.bin")
 
 # Load raw text
 with open(RAW_TEXT_PATH, "r") as f:
@@ -27,20 +26,16 @@ def load_model():
 
 model = load_model()
 
-# Build or load FAISS index (persistent across runs)
+# Build FAISS index
 @st.cache_resource
-def build_or_load_index():
-    if os.path.exists(INDEX_PATH):
-        return faiss.read_index(INDEX_PATH)
-    else:
-        embeddings = model.encode([str(entry) for entry in raw_text])
-        dimension = embeddings.shape[1]
-        index = faiss.IndexFlatL2(dimension)
-        index.add(embeddings)
-        faiss.write_index(index, INDEX_PATH)
-        return index
+def build_index():
+    embeddings = model.encode([str(entry) for entry in raw_text])
+    dimension = embeddings.shape[1]
+    index = faiss.IndexFlatL2(dimension)
+    index.add(embeddings)
+    return index
 
-index = build_or_load_index()
+index = build_index()
 
 # Load corrections
 def load_corrections():
@@ -63,24 +58,24 @@ def save_correction(question, original_answer, corrected_answer):
         json.dump(corrections, f, indent=2)
     print("✅ Correction saved")
 
-# Generate answer from Together AI (Qwen model)
+# Generate answer from Together AI (Mistral model)
 def generate_with_together(prompt):
     try:
         response = requests.post(
-            "https://api.together.xyz/v1/chat/completions ",
+            "https://api.together.xyz/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {API_KEY}",
                 "Content-Type": "application/json"
             },
             json={
+                #"model": "mistralai/Mistral-7B-Instruct-v0.2",
+                #"model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
                 "model": "Qwen/Qwen2-72B-Instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
                 ],
-                "temperature": 0.0,  # Deterministic output
-                "top_p": 1.0,
-                "max_tokens": 256
+                "temperature": 0.7
             }
         )
         return response.json()["choices"][0]["message"]["content"].strip()
@@ -93,57 +88,33 @@ def retrieve_and_answer(query):
     corrections = load_corrections()
     for entry in corrections:
         if entry["question"].strip().lower() == query.strip().lower():
-            return entry["corrected_answer"], None  # No context if correction used
+            return entry["corrected_answer"]
 
     # RAG logic
     query_emb = model.encode([query])
     D, I = index.search(np.array(query_emb), k=1)
     context = str(raw_text[I[0][0]])
 
-    prompt = f"""Use the context below to answer the question clearly and concisely.
-If the context does not contain relevant information, say "I don't know."
-
+    prompt = f"""Answer the following question using the provided context:
+Question: {query}
 Context:
 {context}
-
-Question: {query}
-
 Answer:"""
 
-    answer = generate_with_together(prompt)
-    return answer, context
+    return generate_with_together(prompt)
 
 # --- Streamlit UI ---
 st.set_page_config(page_title="RAG Q&A (Together)", page_icon="🤖")
-st.title("🔎 RAG-based Q&A with Together AI (Qwen)")
+st.title("🔎 RAG-based Q&A with Together AI (Mistral)")
 
 query = st.text_input("Ask your question:")
 
-debug = st.checkbox("Show debug info (context, prompt)")
-
 if st.button("Get Answer") and query:
-    answer, context = retrieve_and_answer(query)
+    answer = retrieve_and_answer(query)
     st.session_state["query"] = query
     st.session_state["answer"] = answer
-    st.session_state["context"] = context
-
     st.markdown("### ✅ Answer")
     st.write(answer)
-
-    if debug:
-        st.markdown("### 📄 Retrieved Context")
-        st.write(context)
-
-        st.markdown("### 🤖 Prompt Sent to LLM")
-        st.code(f"""Use the context below to answer the question clearly and concisely.
-If the context does not contain relevant information, say "I don't know."
-
-Context:
-{context}
-
-Question: {query}
-
-Answer:""")
 
 if "answer" in st.session_state:
     st.markdown("---")
