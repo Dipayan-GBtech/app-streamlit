@@ -59,6 +59,18 @@
     },
     "prescription_drugs_not_subject_to_deductible": true
   },
+"excluded_services": [
+    "Cosmetic Surgery",
+    "Vision care (other than routine)",
+    "Infertility treatment",
+    "Bariatric surgery",
+    "Hearing aids",
+    "Orthodontic services",
+    "Weight loss services",
+    "Experimental treatments",
+    "Services not medically necessary",
+    "dependent maternity"
+  ],
 
   "deductibles": {
     "in_network": {
@@ -220,17 +232,5 @@
     "cosmetic_procedures": "not covered"
   },
 
-  "excluded_services": [
-    "Cosmetic Surgery",
-    "Vision care (other than routine)",
-    "Infertility treatment",
-    "Bariatric surgery",
-    "Hearing aids",
-    "Orthodontic services",
-    "Weight loss services",
-    "Experimental treatments",
-    "Services not medically necessary",
-    "dependent maternity"
-  ]
-}
+  }
 ]
