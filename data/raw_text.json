@@ -194,11 +194,11 @@
     "specialty_drugs": {
       "in_network": {
         "type": "co-insurance",
-        "value": 30
+        "value": 70
       },
       "out_of_network": {
         "type": "co-insurance",
-        "value": 60
+        "value": 40
       }
     }
   },
