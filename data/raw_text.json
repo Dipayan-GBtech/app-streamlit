@@ -16,7 +16,7 @@
       "Individual_Requirement": "Must be satisfied by one person's expenses",
       "Family_Requirement": "Can be satisfied by combined eligible expenses from any covered family members",
       "Combination": "In-network and out-of-network deductibles do not combine",
-      "Carryover_Rule": "Eligible expenses from October, November, and December count toward the next year\u2019s deductible"
+      "Carryover_Rule": "Eligible expenses from October, November, and December count toward the next year's deductible"
     },
     "Out_of_Pocket_Maximum": {
       "In_Network": {
@@ -28,9 +28,10 @@
         }
       },
       "Out_of_Network": {
-        "Out_of_Pocket_Limit": "None",
-        "Patient_Responsibility": "Continues to pay 40% coinsurance and possibly full charges indefinitely",
-        "No_100Percent_Coverage": true
+      "Individual": "No out-of-pocket maximum limit. Patient continues to pay 60% coinsurance for covered services and may also be responsible for charges above the plan's allowable amount (balance billing).",
+      "Family": "No out-of-pocket maximum limit. Family continues to pay 60% coinsurance for covered services and all non-covered amounts, with no upper limit or financial protection.",
+      "Patient_Responsibility": "Continues to pay 40% coinsurance and any balance-billed charges indefinitely. There is no financial cap to protect the patient.",
+      "No_100Percent_Coverage": true
       },
       "Includes": [
         "Copayments",
@@ -358,7 +359,7 @@
   },
   "Eligibility": {
     "Employee_Eligibility": {
-      "Requirement": "Must meet the plan\u2019s eligibility criteria",
+      "Requirement": "Must meet the plan's eligibility criteria",
       "Employment_Status": "Full-time",
       "Minimum_Hours": "As defined by employer",
       "Ineligible_Groups": [
@@ -377,7 +378,7 @@
       ],
       "Termination_Conditions": [
         "Dependent no longer meets eligibility criteria",
-        "Coverage ends when employee\u2019s coverage ends",
+        "Coverage ends when employee's coverage ends",
         "Spouse coverage ends at divorce or legal separation",
         "Child coverage ends at age 26 unless disabled"
       ],
@@ -410,7 +411,7 @@
     "Dependent_Termination": {
       "Earliest_Date_Rules": [
         "Dependent no longer meets eligibility requirements",
-        "Employee\u2019s coverage terminates",
+        "Employee's coverage terminates",
         "Date of divorce/legal separation (for spouse)",
         "Child no longer qualifies (e.g., turns 26 unless disabled)"
       ]
@@ -562,7 +563,7 @@
     "Claims_Submission": {
       "Requirements": [
         "Must be submitted properly",
-        "Must meet plan\u2019s filing deadline",
+        "Must meet plan's filing deadline",
         "Must include all required information: itemized bills, provider info, procedure and diagnosis codes"
       ],
       "Plan_May_Request": [
@@ -587,7 +588,7 @@
           "Reason why the claim should be paid",
           "Supporting documents"
         ],
-        "Plan_Response_Time": "Typically 30\u201360 days"
+        "Plan_Response_Time": "Typically 30 days"
       },
       "Second_Level_Appeal": {
         "Availability": "May be available if first level appeal is denied"
@@ -633,8 +634,8 @@
     {
       "ID": 5,
       "Title": "Work-related injuries",
-      "Description": "No benefits if the injury is related to employment or self-employment. These fall under workers\u2019 comp.",
-      "Scenario_Logic": "Injury at work = denied. If incident happened outside work (e.g., gym), coverage applies."
+      "Description": "No benefits if the injury is related to employment or self-employment. These fall under workers comp.",
+      "Scenario_Logic": "If incident happened outside work (e.g., gym), coverage applies."
     },
     {
       "ID": 6,
@@ -657,7 +658,7 @@
     {
       "ID": 9,
       "Title": "Exceeds reasonable/customary limits",
-      "Description": "Charges above plan\u2019s allowed fee schedule will be denied or partially reimbursed.",
+      "Description": "Charges above plan's allowed fee schedule will be denied or partially reimbursed.",
       "Scenario_Logic": "If a provider bills $500 but plan allows $300, the excess $200 is patient responsibility."
     },
     {
