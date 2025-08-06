@@ -30,7 +30,7 @@
       "Out_of_Network": {
       "Individual": "No out-of-pocket maximum limit. Patient continues to pay 60% coinsurance for covered services and may also be responsible for charges above the plan's allowable amount (balance billing).",
       "Family": "No out-of-pocket maximum limit. Family continues to pay 60% coinsurance for covered services and all non-covered amounts, with no upper limit or financial protection.",
-      "Patient_Responsibility": "Continues to pay 40% coinsurance and any balance-billed charges indefinitely. There is no financial cap to protect the patient.",
+      "Patient_Responsibility": "Continues to pay 60% coinsurance and any balance-billed charges indefinitely. There is no financial cap to protect the patient.",
       "No_100Percent_Coverage": true
       },
       "Includes": [
@@ -156,12 +156,18 @@
       "Condition": "Only applies to services billed by approved Enhanced Benefit Facilities"
     },
     "Emergency_Room_Visits": {
-      "Copay_Per_Visit": "$100",
-      "In_Network_And_Out_of_Network": {
+      "In_Network": {
+        "Copay_Per_Visit": "$100",
         "Plan_Pays": "70% after deductible",
-        "Patient_Pays": "30% after deductible"
+        "Patient_Pays": "30% after deductible",
+        "Copay_Waived": "If using Enhanced Benefit Facility"
       },
-      "Copay_Waived": "If using Enhanced Benefit Facility"
+      "Out_of_Network": {
+        "Copay_Per_Visit": "$100",
+        "Plan_Pays": "70% after deductible",
+        "Patient_Pays": "30% after deductible",
+        "Copay_Waived": "If using Enhanced Benefit Facility"
+      }
     },
     "Skilled_Nursing_Rehab_Care": {
       "In_Network": "Plan pays 70% after deductible",
@@ -182,12 +188,12 @@
     },
     "Hospital_Inpatient_Facility_Charges": {
       "In_Network": {
-        "Plan_Pays": "70% after deductible",
-        "Additional_Copay_Per_Admission": "$300"
+        "Additional_Copay_Per_Admission": "$300",
+        "Plan_Pays": "70% after deductible"
       },
       "Out_of_Network": {
-        "Plan_Pays": "40% after deductible",
-        "Additional_Copay_Per_Admission": "$500"
+        "Additional_Copay_Per_Admission": "$500",
+        "Plan_Pays": "40% after deductible"
       },
       "Copay_Waived": "If using Enhanced Benefit Facility"
     },
@@ -293,14 +299,14 @@
     },
     "Inpatient_Hospitalization": {
       "In_Network": {
+        "Admission_Copay": "$300",
         "Plan_Pays": "70% after deductible",
-        "Patient_Pays": "30% after deductible",
-        "Admission_Copay": "$300"
+        "Patient_Pays": "30% after deductible"
       },
       "Out_of_Network": {
+        "Admission_Copay": "$500",
         "Plan_Pays": "40% after deductible",
-        "Patient_Pays": "60% after deductible",
-        "Admission_Copay": "$500"
+        "Patient_Pays": "60% after deductible"
       }
     },
     "Residential_Treatment_Facilities": {
