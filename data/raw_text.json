@@ -212,7 +212,7 @@
     },
     "Emergency_Room_Visits": {
       "In_Network": {
-        "Copay_Per_Visit": "$100",
+        "Copay_Per_Visit": "$100 per visit Additional copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -223,7 +223,7 @@
         "Copay_Waived": "If using Enhanced Benefit Facility"
       },
       "Out_of_Network": {
-        "Copay_Per_Visit": "$100",
+        "Copay_Per_Visit": "$100 per visit Additional copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible",
           "Balance_Billing": "Patient is responsible for all charges above the plan's allowed amount (UCR/Usual, Customary, and Reasonable). There is no cap on these costs, and they do not count toward the out-of-pocket maximum."
@@ -284,7 +284,7 @@
     },
     "Hospital_Inpatient_Facility_Charges": {
       "In_Network": {
-        "Additional_Copay_Per_Admission": "$300",
+        "Copay": "$300 Additional copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -295,14 +295,14 @@
         "Condition": "Only applies to services billed by approved Enhanced Benefit Facilities"
       },
       "Out_of_Network": {
-        "Additional_Copay_Per_Admission": "$500",
+        "Copay": "$500 Additional copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible"
       }
     },
     "Inpatient_Surgery": {
       "In_Network": {
-        "Additional_Copay_Per_Admission": "$300",
+        "Copay": "$300 Additional copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -313,14 +313,14 @@
         "Condition": "Only applies to services billed by approved Enhanced Benefit Facilities"
       },
       "Out_of_Network": {
-        "Additional_Copay_Per_Admission": "$500",
+        "Copay": "$500 Additional copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible"
       }
     },
     "Hospital_Room_And_Board": {
       "In_Network": {
-      "Additional_Copay_Per_Admission": "$300",
+      "Copay": "$300 additional copay per admission even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
           "Semi_Private_Room": {
           "Rate": "Semi-Private Rate",
           "Plan_Pays": "70% after deductible",
@@ -345,8 +345,8 @@
         "Condition": "Services must be performed and billed by an approved Enhanced Benefit Facility. Inpatient and outpatient deductibles waived. Member must contact Nexcaliber at (800) 741-0185 at time of service to confirm facility inclusion."
           },
       "Out_of_Network": {
-        "Additional_Copay_Per_Admission": "$500",
-        "Semi_Private_Room": {
+      "Copay": "$500 additional copay per admission even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+          "Semi_Private_Room": {
           "Rate": "Semi-Private Rate",
           "Plan_Pays": "40% after deductible",
           "Patient_Pays": "60% after deductible"
@@ -421,7 +421,7 @@
     },
     "Outpatient_Surgery_And_Diagnostic": {
       "In_Network": {
-        "Copay_Per_Incident": "$100",
+        "Copay_Per_Incident": "$100 per incident, even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -432,7 +432,7 @@
         "Condition": "Only applies to services billed by approved Enhanced Benefit Facilities"
       },
       "Out_of_Network": {
-        "Copay_Per_Incident": "$100",
+        "Copay_Per_Incident": "$100 per incident, even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible",
         "Balance_Billing": "Patient is responsible for all charges above the plan's allowed amount (UCR/Usual, Customary, and Reasonable). There is no cap on these costs, and they do not count toward the out-of-pocket maximum."
@@ -450,10 +450,12 @@
       }
     },
     "Routine_Wellness_Care": {
+      "Description": "Includes, but is not limited to, Pap smears, routine mammography, colorectal and prostate tests, hearing tests, vision testing, routine checkups, immunizations, inoculations, related laboratory work, and x-rays. Also includes services rated an 'A' or 'B' by the United States Preventive Services Task Force (USPTF).",
       "In_Network": "Plan pays 100%, deductible waived",
       "Out_of_Network": "Plan pays 40% after deductible"
     },
     "Enhanced_Well_Woman_Benefits": {
+      "Description": "Includes: prenatal visits (routine preventive visits); screening for gestational diabetes; human papillomavirus (HPV) DNA testing from age 30 every 3 years; counseling for sexually transmitted infections (eligible providers only); counseling and screening for human immunodeficiency virus (HIV) (eligible providers only); screening and counseling for interpersonal and domestic violence (eligible providers only); breastfeeding support, supplies and counseling; generic formulary contraceptives, certain brand formulary contraceptives, and all Food and Drug Administration (FDA) approved contraceptive methods; sterilization procedures; and patient education and counseling for all women with reproductive capacity, with a physician-issued prescription.",
       "In_Network": "Plan pays 100%, deductible waived",
       "Out_of_Network": "Plan pays 40% after deductible"
     },
