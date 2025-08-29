@@ -2,7 +2,7 @@
   "Deductibles_and_Out_of_Pocket_Expenses": {
     "In_Network_Deductible": {
       "Individual": "$1500",
-      "Family": "$3000",
+      "Family": "$4500",
       "Plan_Pays_Before_Deductible": "0%, Deductible must be met before plan benefits apply unless otherwise stated",
       "Patient_Pays_Before_Deductible": "All covered expenses until deductible is met"
     },
