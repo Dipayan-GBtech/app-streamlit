@@ -8,8 +8,8 @@ from datetime import datetime
 from sentence_transformers import SentenceTransformer
 
 # Load Together API key from secrets
-#API_KEY = st.secrets["TOGETHER_API_KEY"]
-MODEL_API_KEY = st.secrets["OPENROUTER_API_KEY"]
+API_KEY = st.secrets["TOGETHER_API_KEY"]
+#MODEL_API_KEY = st.secrets["OPENROUTER_API_KEY"]
 # Paths
 DATA_DIR = "data"
 RAW_TEXT_PATH = os.path.join(DATA_DIR, "raw_text.json")
@@ -67,24 +67,18 @@ def save_correction(question, original_answer, corrected_answer):
 def generate_with_together(prompt):
     try:
         response = requests.post(
-            #"https://api.together.xyz/v1/chat/completions",
-            "https://openrouter.ai/api/v1/chat/completions",
-           # headers={
-               # "Authorization": f"Bearer {API_KEY}",
-                #"Content-Type": "application/json"
-            #},
-            headers = {
-                    "Authorization": f"Bearer {MODEL_API_KEY}",
-                    "HTTP-Referer": "http://localhost",   # required by OpenRouter
-                    "X-Title": "InsuranceClaimApp",
-                    "Content-Type": "application/json"
-                },
+            "https://api.together.xyz/v1/chat/completions",
+            #"https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json"
+            },
             json={
-                "model": "Qwen/Qwen2-72B-Instruct",
+                #"model": "Qwen/Qwen2-72B-Instruct",
                 #"model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
                 #"model": "Qwen/Qwen2.5-VL-72B-Instruct",
                 #"model":"mistralai/Mixtral-8x7B-Instruct-v0.1",
-                #"model": "Qwen/Qwen2.5-7B-Instruct-Turbo",
+                "model": "Qwen/Qwen2.5-14B-Instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
