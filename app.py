@@ -77,8 +77,8 @@ def generate_with_together(prompt):
                 #"model": "Qwen/Qwen2-72B-Instruct",
                 #"model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
                 #"model": "Qwen/Qwen2.5-VL-72B-Instruct",
-                #"model":"mistralai/Mixtral-8x7B-Instruct-v0.1",
-                "model": "Qwen/Qwen2.5-14B-Instruct",
+                "model":"mistralai/Mixtral-8x7B-Instruct-v0.1",
+                #"model": "Qwen/Qwen2.5-14B-Instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
