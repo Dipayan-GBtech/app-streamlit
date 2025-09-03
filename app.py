@@ -67,8 +67,8 @@ def save_correction(question, original_answer, corrected_answer):
 def generate_with_together(prompt):
     try:
         response = requests.post(
-            #"https://api.together.xyz/v1/chat/completions",
-            "https://api.together.xyz/droy_f013/Qwen/Qwen2-72B-Instruct",
+            "https://api.together.xyz/v1/chat/completions",
+            #"https://api.together.xyz/droy_f013/Qwen/Qwen2-72B-Instruct",
             #"https://openrouter.ai/api/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {API_KEY}",
