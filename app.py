@@ -94,17 +94,51 @@ def generate_with_together(prompt):
 
 # Retrieval + RAG
 def retrieve_and_answer(query):
-    # Check for corrected answer
+    # Check for corrected answer (exact match correction)
     corrections = load_corrections()
     for entry in corrections:
         if entry["question"].strip().lower() == query.strip().lower():
             return entry["corrected_answer"], None  # No context if correction used
 
-    # RAG logic
-    query_emb = model.encode([query])
-    D, I = index.search(np.array(query_emb), k=1)
-    context = str(raw_text[I[0][0]])
+    # Encode the query
+    try:
+        query_emb = model.encode([query])
+    except Exception as e:
+        st.error(f"❌ Error encoding query: {e}")
+        return "⚠️ Unable to process your question.", None
 
+    # Search FAISS index
+    try:
+        D, I = index.search(np.array(query_emb), k=1)
+    except Exception as e:
+        st.error(f"❌ Error during FAISS search: {e}")
+        return "⚠️ Retrieval system is not working properly.", None
+
+    # --- Safety checks ---
+    # 1. Check if search returned any valid index
+    if I is None or len(I) == 0 or len(I[0]) == 0:
+        return "I don't know.", None
+
+    retrieved_index = I[0][0]
+
+    # 2. Ensure the index is within the bounds of raw_text
+    if retrieved_index < 0 or retrieved_index >= len(raw_text):
+        st.warning(f"⚠️ Invalid index returned by FAISS: {retrieved_index}")
+        return "I don't know.", None
+
+    # 3. Double-check that raw_text is a list and not empty
+    if not isinstance(raw_text, list) or len(raw_text) == 0:
+        st.error("❌ raw_text is not a valid list or is empty.")
+        return "I don't know.", None
+
+    # All checks passed — retrieve context
+    try:
+        context = str(raw_text[retrieved_index])
+    except Exception as e:
+        st.error(f"❌ Error accessing raw_text[{retrieved_index}]: {e}")
+        return "I don't know.", None
+
+    # Build prompt for LLM
     prompt = f"""Use the context below to answer the question clearly and concisely.
 If the context does not contain relevant information, say "I don't know."
 
@@ -115,9 +149,14 @@ Question: {query}
 
 Answer:"""
 
-    answer = generate_with_together(prompt)
-    return answer, context
+    # Generate answer
+    try:
+        answer = generate_with_together(prompt)
+    except Exception as e:
+        st.error(f"❌ Error generating answer: {e}")
+        answer = "⚠️ Sorry, I couldn't generate a response."
 
+    return answer, context
 # --- Streamlit UI ---
 st.set_page_config(page_title="RAG Q&A (Together)", page_icon="🤖")
 st.title("🔎 RAG-based Q&A with Together AI (Qwen)")
