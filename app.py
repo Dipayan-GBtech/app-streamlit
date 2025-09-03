@@ -67,17 +67,17 @@ def save_correction(question, original_answer, corrected_answer):
 def generate_with_together(prompt):
     try:
         response = requests.post(
-            "https://api.together.xyz/v1/chat/completions/droy_f013/Qwen/Qwen2-72B-Instruct",
+            "https://api.together.xyz/v1/chat/completions",
             #"https://openrouter.ai/api/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {API_KEY}",
                 "Content-Type": "application/json"
             },
             json={
-                "model": "Qwen/Qwen2-72B-Instruct",
+                #"model": "Qwen/Qwen2-72B-Instruct",
                 #"model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
                 #"model": "Qwen/Qwen2.5-VL-72B-Instruct",
-                #"model":"openai/gpt-oss-120b",
+                "model":"openai/gpt-oss-120b",
                 #"model": "Qwen/Qwen2.5-14B-Instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
