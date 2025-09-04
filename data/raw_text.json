@@ -212,7 +212,7 @@
     },
     "Emergency_Room_Visits": {
       "In_Network": {
-        "Copay_Per_Visit": "$100 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
+        "Copay_Per_Visit": "$100 Copay per visit is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -223,7 +223,7 @@
         "Copay_Waived": "If using Enhanced Benefit Facility"
       },
       "Out_of_Network": {
-        "Copay_Per_Visit": "$100 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
+        "Copay_Per_Visit": "$100 Copay per visit is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible",
           "Balance_Billing": "Patient is responsible for all charges above the plan's allowed amount (UCR/Usual, Customary, and Reasonable). There is no cap on these costs, and they do not count toward the out-of-pocket maximum."
@@ -421,7 +421,7 @@
     },
     "Outpatient_Surgery_And_Diagnostic": {
       "In_Network": {
-        "Copay_Per_Incident": "$100 per incident, even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay_Per_Incident": "$100 per incident, Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -432,7 +432,7 @@
         "Condition": "Only applies to services billed by approved Enhanced Benefit Facilities"
       },
       "Out_of_Network": {
-        "Copay_Per_Incident": "$100 per incident, even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay_Per_Incident": "$100 per incident, Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible",
         "Balance_Billing": "Patient is responsible for all charges above the plan's allowed amount (UCR/Usual, Customary, and Reasonable). There is no cap on these costs, and they do not count toward the out-of-pocket maximum."
