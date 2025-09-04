@@ -212,7 +212,7 @@
     },
     "Emergency_Room_Visits": {
       "In_Network": {
-        "Copay_Per_Visit": "$100 per visit copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay_Per_Visit": "$100 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -223,7 +223,7 @@
         "Copay_Waived": "If using Enhanced Benefit Facility"
       },
       "Out_of_Network": {
-        "Copay_Per_Visit": "$100 per visit copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay_Per_Visit": "$100 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible",
           "Balance_Billing": "Patient is responsible for all charges above the plan's allowed amount (UCR/Usual, Customary, and Reasonable). There is no cap on these costs, and they do not count toward the out-of-pocket maximum."
@@ -284,7 +284,7 @@
     },
     "Hospital_Inpatient_Facility_Charges": {
       "In_Network": {
-        "Copay": "$300 copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay": "$300 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -295,14 +295,14 @@
         "Condition": "Only applies to services billed by approved Enhanced Benefit Facilities"
       },
       "Out_of_Network": {
-        "Copay": "$500 copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay": "$500 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible"
       }
     },
     "Inpatient_Surgery": {
       "In_Network": {
-        "Copay": "$300 copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay": "$300 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "70% after deductible",
         "Patient_Pays": "30% after deductible"
       },
@@ -313,14 +313,14 @@
         "Condition": "Only applies to services billed by approved Enhanced Benefit Facilities"
       },
       "Out_of_Network": {
-        "Copay": "$500 copays still apply even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+        "Copay": "$500 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
         "Plan_Pays": "40% after deductible",
         "Patient_Pays": "60% after deductible"
       }
     },
     "Hospital_Room_And_Board": {
       "In_Network": {
-      "Copay": "$300 copay per admission even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+      "Copay": "$300 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
           "Semi_Private_Room": {
           "Rate": "Semi-Private Rate",
           "Plan_Pays": "70% after deductible",
@@ -345,7 +345,7 @@
         "Condition": "Services must be performed and billed by an approved Enhanced Benefit Facility. Inpatient and outpatient deductibles waived. Member must contact Nexcaliber at (800) 741-0185 at time of service to confirm facility inclusion."
           },
       "Out_of_Network": {
-      "Copay": "$500 copay per admission even after the deductible, coinsurance, and out-of-pocket maximum (OOP) are met, unless otherwise stated in the plan.",
+      "Copay": "$500 Copay is applied first to the allowed admission charge before deductible and coinsurance are calculated. Member + Plan responsibility will not exceed the allowed charge. Copay continues to apply even after the deductible, coinsurance, or out-of-pocket maximum are met, unless otherwise stated in the plan.",
           "Semi_Private_Room": {
           "Rate": "Semi-Private Rate",
           "Plan_Pays": "40% after deductible",
