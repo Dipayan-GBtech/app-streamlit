@@ -667,7 +667,7 @@
     "Employee_Termination": {
       "Condition": "Coverage ends when employee no longer meets plan eligibility",
       "Effective_Date": {
-        "Weekly_Employees": "Coverage ends at midnight of the date of the termination event",
+        "Weekly_Employees": "Coverage ends at midnight of the Saturday following the termination date",
         "Monthly_Employees": "Coverage ends at midnight on the last day of the month including the date of the termination event"
       }
     },
