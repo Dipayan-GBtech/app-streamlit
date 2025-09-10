@@ -159,8 +159,8 @@ Answer:"""
 
     return answer, context
 # --- Streamlit UI ---
-st.set_page_config(page_title="RAG Q&A (Together)", page_icon="🤖")
-st.title("🔎 RAG-based Q&A with Together AI (Qwen)")
+st.set_page_config(page_title="Q&A", page_icon="🤖")
+st.title("🔎Q&A ")
 
 query = st.text_input("Ask your question:")
 
