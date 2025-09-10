@@ -77,8 +77,8 @@ def generate_with_together(prompt):
             json={
                 #"model": "Qwen/Qwen2-72B-Instruct",
                 #"model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
-                "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-                #"model":"openai/gpt-oss-120b",
+                #"model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+                "model":"openai/gpt-oss-120b",
                 #"model": "Qwen/Qwen2.5-14B-Instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
