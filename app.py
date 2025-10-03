@@ -9,7 +9,7 @@ from openai import OpenAI
 from sentence_transformers import SentenceTransformer
 
 # Load Together API key from secrets
-API_KEY="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"
+API_KEY="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"
 #API_KEY = st.secrets["OPENROUTER_API_KEY"]
 
 # Paths
