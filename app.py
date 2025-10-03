@@ -9,7 +9,6 @@ from openai import OpenAI
 from sentence_transformers import SentenceTransformer
 
 # Load Together API key from secrets
-#API_KEY = st.secrets["TOGETHER_API_KEY"]
 API_KEY = st.secrets["OPENROUTER_API_KEY"]
 
 # Paths
