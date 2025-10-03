@@ -5,11 +5,13 @@ import streamlit as st
 import faiss
 import requests
 from datetime import datetime
+from openai import OpenAI
 from sentence_transformers import SentenceTransformer
 
 # Load Together API key from secrets
-API_KEY = st.secrets["TOGETHER_API_KEY"]
-#MODEL_API_KEY = st.secrets["OPENROUTER_API_KEY"]
+#API_KEY = st.secrets["TOGETHER_API_KEY"]
+API_KEY = st.secrets["OPENROUTER_API_KEY"]
+
 # Paths
 DATA_DIR = "data"
 RAW_TEXT_PATH = os.path.join(DATA_DIR, "raw_text.json")
@@ -40,6 +42,7 @@ def build_or_load_index():
         faiss.write_index(index, INDEX_PATH)
         return index
 
+
 index = build_or_load_index()
 
 # Load corrections
@@ -63,35 +66,92 @@ def save_correction(question, original_answer, corrected_answer):
         json.dump(corrections, f, indent=2)
     print("✅ Correction saved")
 
-# Generate answer from Together AI (Qwen model)
-def generate_with_together(prompt):
+def extract_structured_json(answer_text):
+    """
+    Uses the same LLM to extract a structured JSON from the answer.
+    """
+    extraction_prompt = f"""You are an expert in parsing healthcare benefit answers.
+From the following answer, extract ONLY the following fields if mentioned:
+- plan_paid
+- providers_responsibility
+- copay
+- coinsurance
+- deductible
+- employee_responsibility
+
+If a field is not mentioned, omit it or set it to null.
+Return a valid JSON object with only these keys. Do not add explanations.
+
+Answer:
+{answer_text}
+
+JSON:"""
+
     try:
         response = requests.post(
-            "https://api.together.xyz/v1/chat/completions",
-            #"https://api.together.xyz/droy_f013/Qwen/Qwen2-72B-Instruct",
-            #"https://openrouter.ai/api/v1/chat/completions",
+            "https://openrouter.ai/api/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {API_KEY}",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             json={
-                #"model": "Qwen/Qwen2-72B-Instruct",
-                #"model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
-                #"model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-                #"model":"openai/gpt-oss-120b",
-                "model": "Qwen/Qwen2.5-14B-Instruct",
+                #"model": "openai/gpt-oss-120b",
+                "model": "qwen/qwen-2.5-72b-instruct",
+                "messages": [
+                    {"role": "system", "content": "You are a precise JSON extractor."},
+                    {"role": "user", "content": extraction_prompt}
+                ],
+                "temperature": 0.0,
+                "max_tokens": 256
+            }
+        )
+        if response.status_code == 200:
+            raw_output = response.json()["choices"][0]["message"]["content"].strip()
+            # Try to extract JSON from possible markdown or text
+            if raw_output.startswith("```json"):
+                raw_output = raw_output[7:]  # remove ```json
+            if raw_output.endswith("```"):
+                raw_output = raw_output[:-3]
+            # Parse JSON
+            import json
+            parsed = json.loads(raw_output)
+            return parsed
+        else:
+            return {"error": f"API error: {response.status_code}"}
+    except Exception as e:
+        return {"error": f"Failed to extract JSON: {str(e)}"}
+
+# Generate answer from Together AI (Qwen model)
+
+def generate_with_ollama(prompt):
+    try:
+        response = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json",
+                },
+            json={
+                #"model": "openai/gpt-oss-120b",  # OpenRouter model ID for Qwen2.5-14B-Instruct
+                "model": "qwen/qwen-2.5-72b-instruct",
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
                 ],
-                "temperature": 0.0,  # Deterministic output
+                "temperature": 0.0,
                 "top_p": 1.0,
                 "max_tokens": 256
             }
         )
+        # Handle potential errors in response
+        if response.status_code != 200:
+            return f"⚠️ API Error ({response.status_code}): {response.text}"
+        
         return response.json()["choices"][0]["message"]["content"].strip()
+    
     except Exception as e:
         return f"⚠️ Error generating answer: {e}"
+
 
 # Retrieval + RAG
 def retrieve_and_answer(query):
@@ -152,15 +212,16 @@ Answer:"""
 
     # Generate answer
     try:
-        answer = generate_with_together(prompt)
+        answer = generate_with_ollama(prompt)
     except Exception as e:
         st.error(f"❌ Error generating answer: {e}")
         answer = "⚠️ Sorry, I couldn't generate a response."
 
     return answer, context
 # --- Streamlit UI ---
+# --- Streamlit UI ---
 st.set_page_config(page_title="Q&A", page_icon="🤖")
-st.title("🔎Q&A ")
+st.title("🔎 Q&A ")
 
 query = st.text_input("Ask your question:")
 
@@ -172,8 +233,17 @@ if st.button("Get Answer") and query:
     st.session_state["answer"] = answer
     st.session_state["context"] = context
 
+    # Extract structured JSON from the answer
+    structured_data = extract_structured_json(answer)
+    st.session_state["structured_json"] = structured_data
+
+    # Display original answer
     st.markdown("### ✅ Answer")
     st.write(answer)
+
+    # Display structured JSON
+    st.markdown("### 📦 Structured Data (JSON)")
+    st.json(structured_data)
 
     if debug:
         st.markdown("### 📄 Retrieved Context")
@@ -190,6 +260,7 @@ Question: {query}
 
 Answer:""")
 
+# Feedback section remains unchanged
 if "answer" in st.session_state:
     st.markdown("---")
     st.subheader("Was this answer correct?")
