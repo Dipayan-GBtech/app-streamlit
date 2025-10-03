@@ -4,4 +4,5 @@ torch>=2.0.1
 faiss-cpu
 streamlit
 requests
+openai
 huggingface-hub>=0.23.0
